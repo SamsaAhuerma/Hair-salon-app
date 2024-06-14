@@ -7,4 +7,5 @@ It has two main purposes: to practice modern and interesting technologies like P
 Contributors:
 
 Samsa Ahuerma,
-Nicolas Xynos
+Nicolas Xynos,
+Renzo Condormango
