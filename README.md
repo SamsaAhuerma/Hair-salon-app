@@ -9,3 +9,5 @@ Contributors:
 Samsa Ahuerma,
 Nicolas Xynos,
 Renzo Condormango
+
+P.S.: Please be patient with this repo, as we are both working and studying.🤍
