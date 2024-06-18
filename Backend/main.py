@@ -1,13 +1,8 @@
 from fastapi import FastAPI
-from motor.motor_asyncio import AsyncIOMotorClient
 from Backend.routes import appointments
 from Backend.routes import customers
 
 app = FastAPI()
-
-#Base de datos
-customer = AsyncIOMotorClient("mongodb://localhost:27017")
-database = customer["hairdresser_db"]
 
 app.include_router(customers.router)
 app.include_router(appointments.router)
