@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from motor.motor_asyncio import AsyncIOMotorClient
-from routers import customers, appointments
+from Backend.routes import appointments
+from Backend.routes import customers
 
 app = FastAPI()
 
