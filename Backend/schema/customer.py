@@ -6,3 +6,6 @@ def customerEntity(item)->dict:
         "phone":item["phone"],
         "appointments":item["appointments"]
     }
+
+def customersEntity(customers)->list:
+    return [customerEntity(customer) for customer in customers]

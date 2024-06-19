@@ -1,6 +1,5 @@
 from fastapi import FastAPI
-from Backend.routes import appointments
-from Backend.routes import customers
+from routes import appointments, customers
 
 app = FastAPI()
 

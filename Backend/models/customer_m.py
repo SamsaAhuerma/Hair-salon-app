@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 from typing import List
-from appointments_m import Appointments
+from models.appointments_m import Appointments
 
 class Customer(BaseModel):
     name: str
