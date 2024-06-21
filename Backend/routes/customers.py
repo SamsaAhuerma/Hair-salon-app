@@ -1,9 +1,7 @@
 from fastapi import APIRouter
 from typing import List
 from models.customer_m import Customer
-from config.database import customer_collection
-from schema.customer import customerEntity, customersEntity
-from bson import ObjectId
+from db_com.customers import customerComunicationDB
 
 #customers /clientes
 #iniciar el server : uvicorn customers:app --reload
@@ -11,22 +9,22 @@ router = APIRouter()
 
 @router.get("/customers", response_model=List[dict]) 
 async def get_all_customers():
-    customers = customersEntity(customer_collection.find())
-    return customers
+    return customerComunicationDB.get_list_of_customers()
 
 @router.post("/customers")
 async def create_customer(customer : Customer):
-    customer_collection.insert_one(dict(customer))
+    #falta validación de datos acá ?¿
+    return customerComunicationDB.create_customer(customer)
 
 @router.get("/customers/{id}")
 async def get_customer(id:str):
-    customer = customer_collection.find_one({"_id":ObjectId(id)})
-    return customerEntity(customer)
+    return customerComunicationDB.get_customer_by_id(id)
 
 @router.put("/customers/{id}")
 async def update_customer(id:str, customer:Customer):
-    customer_collection.find_one_and_update({"_id":ObjectId(id)},{"$set":dict(customer)})
+    #falta validación de datos acá ?¿
+    return customerComunicationDB.update_customer_by_id(id, customer)
 
 @router.delete("/customers/{id}")
 async def delete_customer(id:str):
-    customer_collection.find_one_and_delete({"_id":ObjectId(id)})
+    return customerComunicationDB.delete_customer_by_id(id)
