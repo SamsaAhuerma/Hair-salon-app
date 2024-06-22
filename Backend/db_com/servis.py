@@ -13,8 +13,13 @@ class ServisRepository:
         except PyMongoError as e:
             raise Exception(f"An error occurred while getting the servis list {e}")
 
-    def servis_exists(self, servis_name):
-        return db.find_one({"servis_name": servis_name})
+    def exists_servis_by_name(self, servis_name):
+        try:
+            return db.find_one({"servis_name": servis_name})
+        except WTimeoutError:
+            raise Exception("Timeout expired querying the database")
+        except PyMongoError as e:
+            raise Exception(f"An error occurred while getting the servis list {e}")
     
     def get_list_of_servis(self):
         try:
