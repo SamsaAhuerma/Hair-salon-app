@@ -36,7 +36,7 @@ async def get_all_servis():
     
 
 @router.get("/{id}", response_model=dict)
-async def get_servis_by_id(id: str):
+async def get_servis(id: str):
     try:
         servis = servis_repo.get_servis_by_id(ObjectId(id))
         if servis:
