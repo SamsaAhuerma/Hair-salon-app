@@ -15,15 +15,14 @@ servis_repo = ServisRepository()
 
 @router.post("/", status_code=status.HTTP_201_CREATED)
 async def create_servis(servis: Servis):
-    if servis_repo.servis_exists(servis.servis_name):
+    if servis_repo.exists_servis_by_name(servis.servis_name):
         raise HTTPException(status_code=400, detail="Servis already exists")
     
     try:
         servis_repo.create_servis(servis)
         return {"Servis created successfully"}
     except Exception as e:
-        print(e)
-        raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Internal server error: An error occurred while creating the servis")
+        raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f"Internal server error: {e}")
     
 
 @router.get("/", response_model=List[dict])
@@ -33,7 +32,7 @@ async def get_all_servis():
         return servicesEntity(services)
     except Exception as e:
         print(e)
-        raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Internal server error: An error occurred while getting all servis")
+        raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f"Internal server error: {e}")
     
 
 @router.get("/{id}", response_model=dict)
@@ -47,7 +46,7 @@ async def get_servis_by_id(id: str):
     except Exception as e:
         raise e if isinstance(e, HTTPException) else HTTPException(
             status.HTTP_500_INTERNAL_SERVER_ERROR, 
-            detail="Internal server error: An error occurred while getting the servis")
+            detail=f"Internal server error: {e}")
     
 
 @router.put("/{id}")
@@ -58,8 +57,7 @@ async def update_servis(id: str, servis: Servis):
         servis_repo.update_servis(ObjectId(id), servis)
         return {"Servis updated successfully"}
     except Exception as e:
-        print(e)
-        raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Internal server error: An error occurred while updating the servis")
+        raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f"Internal server error: {e}")
     
 
 @router.delete("/{id}")
@@ -70,5 +68,4 @@ async def delete_servis(id: str):
         servis_repo.delete_servis(ObjectId(id))
         return {"Servis deleted successfully"}
     except Exception as e:
-        print(e)
-        raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Internal server error: An error occurred while deleting the servis")
+        raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f"Internal server error: {e}")
