@@ -16,7 +16,7 @@ def get_list_of_nameclass():
 
 def update_nameclass_by_id(): 
 
-def delete_nameclass_by_id()
+def delete_nameclass_by_id():
 ```
 
 # Manejo de excepciones con DB
