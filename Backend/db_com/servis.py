@@ -1,7 +1,7 @@
 from config.database import db as db
 from pymongo.errors import DuplicateKeyError ,WTimeoutError, PyMongoError
 
-class ServisRepository:
+class ServisComunicationDB():
 
     def create_servis(self, servis):
         try:

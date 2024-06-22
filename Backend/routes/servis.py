@@ -1,25 +1,25 @@
 from fastapi import APIRouter, HTTPException, status
 from typing import List
 from models.servis import Servis
-from db_com.servis import ServisRepository
+from db_com.servis import ServisComunicationDB
 from schema.servis import servisEntity, servicesEntity
 from bson import ObjectId
 
 
 router = APIRouter(prefix="/servis",
                     tags=["Servis"],
-                    responses={status.HTTP_404_NOT_FOUND: {"description": "Not found"}})
+                    responses={status.HTTP_500_INTERNAL_SERVER_ERROR: {"description": "Internal server error"}},)
 
-servis_repo = ServisRepository()
+com_db = ServisComunicationDB()
 
 
 @router.post("/", status_code=status.HTTP_201_CREATED)
 async def create_servis(servis: Servis):
-    if servis_repo.exists_servis_by_name(servis.servis_name):
+    if com_db.exists_servis_by_name(servis.servis_name):
         raise HTTPException(status_code=400, detail="Servis already exists")
     
     try:
-        servis_repo.create_servis(servis)
+        com_db.create_servis(servis)
         return {"Servis created successfully"}
     except Exception as e:
         raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f"Internal server error: {e}")
@@ -28,7 +28,7 @@ async def create_servis(servis: Servis):
 @router.get("/", response_model=List[dict])
 async def get_all_servis():
     try:
-        services = servis_repo.get_all_servis()
+        services = com_db.get_all_servis()
         return servicesEntity(services)
     except Exception as e:
         print(e)
@@ -38,7 +38,7 @@ async def get_all_servis():
 @router.get("/{id}", response_model=dict)
 async def get_servis(id: str):
     try:
-        servis = servis_repo.get_servis_by_id(ObjectId(id))
+        servis = com_db.get_servis_by_id(ObjectId(id))
         if servis:
             return servisEntity(servis)
         else:
@@ -51,10 +51,10 @@ async def get_servis(id: str):
 
 @router.put("/{id}")
 async def update_servis(id: str, servis: Servis):
-    if not servis_repo.get_servis_by_id(ObjectId(id)):
+    if not com_db.get_servis_by_id(ObjectId(id)):
         raise HTTPException(status.HTTP_404_NOT_FOUND, detail="Servis not found")
     try:
-        servis_repo.update_servis(ObjectId(id), servis)
+        com_db.update_servis(ObjectId(id), servis)
         return {"Servis updated successfully"}
     except Exception as e:
         raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f"Internal server error: {e}")
@@ -62,10 +62,10 @@ async def update_servis(id: str, servis: Servis):
 
 @router.delete("/{id}")
 async def delete_servis(id: str):
-    if not servis_repo.get_servis_by_id(ObjectId(id)):
+    if not com_db.get_servis_by_id(ObjectId(id)):
         raise HTTPException(status.HTTP_404_NOT_FOUND, detail="Servis not found")
     try:
-        servis_repo.delete_servis(ObjectId(id))
+        com_db.delete_servis(ObjectId(id))
         return {"Servis deleted successfully"}
     except Exception as e:
         raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f"Internal server error: {e}")
