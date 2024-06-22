@@ -1,8 +1,6 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
-class Appointments(BaseModel):
-    servis_id: int
-    customer_id: int
+class Servis(BaseModel):
     servis_name: str
     servis_description: str
     servis_duration: int
