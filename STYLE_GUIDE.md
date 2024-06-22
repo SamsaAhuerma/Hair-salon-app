@@ -38,8 +38,19 @@ def get_list_of_customers():
         except PyMongoError as e:
             return {"error":str(e)}
 ```
+# Routers
+Usar prefijo, tag y respuesta por default  
+Además crear una instancia de la comunicación por fuera  
+Ejemplo:
+```python
+router = APIRouter(prefix="/servis",
+                    tags=["Servis"],
+                    responses={status.HTTP_500_INTERNAL_SERVER_ERROR: {"description": "Internal server error"}},)
 
-# Endpoints
+com_db = ServisComunicationDB()
+```
+
+## Endpoints
 Nombre de las funciones:
 ```python
 async def get_all_nameclass():
