@@ -1,5 +1,5 @@
 def appointmentEntity(item) -> dict:
-    return {
+    return{
         "id": str(item["_id"]),
         "customer_id": item["customer_id"],
         "service_id": item["service_id"],
