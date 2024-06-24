@@ -9,8 +9,7 @@ class appointmentsComunicationDB():
     def create_appointment(appointment: Appointments):
         try:
             db.insert_one(dict(appointment))
-            appointment_created = db.find_one({"_id": db.inserted_id})
-            return appointment_created
+            return db.find_one({"_id": db.inserted_id})
         except WTimeoutError:
             return {"error": "TimeoutError"}
         except PyMongoError as e:
