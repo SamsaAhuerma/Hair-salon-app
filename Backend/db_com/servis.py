@@ -1,4 +1,4 @@
-from config.database import db as db
+from config.database import servis_collection as db
 from pymongo.errors import DuplicateKeyError ,WTimeoutError, PyMongoError
 
 class ServisComunicationDB():
