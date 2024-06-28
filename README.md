@@ -5,7 +5,11 @@ It has two main purposes: to practice modern and interesting technologies like P
 
 Developers:
 
-Samsa Ahuerma, Nicolas Xynos, Renzo Condormango
+Samsa Ahuerma: https://www.linkedin.com/in/samsaahuerma/
+
+Nicolas Xynos: https://www.linkedin.com/in/nicoxynos/
+
+Renzo Condormango: https://www.linkedin.com/in/renzo-condormango/
 
 P.S.: Please be patient with this repo, as we are both working and studying. 🤍
 
