@@ -12,3 +12,4 @@ client = MongoClient(uri, server_api=ServerApi('1'))
 db = client.hair_salon_db
 
 customer_collection = db["customer_collection"]
+servis_collection = db["servis_collection"]
