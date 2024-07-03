@@ -9,7 +9,7 @@ router = APIRouter(prefix="/appointments",
                    tags=["appointments"],
                    responses={status.HTTP_500_INTERNAL_SERVER_ERROR: {"description": "Not found"}})
 
-com_db = db
+com_db = db()
 #citas
 @router.get("/", response_model=List[Appointments]) 
 async def get_all_appointments():
